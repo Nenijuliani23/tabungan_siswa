@@ -1,0 +1,41 @@
+ion-card {
+  margin: 16px;
+
+  ion-item {
+    --padding-start: 0;
+    margin-bottom: 12px;
+
+    ion-icon {
+      color: var(--ion-color-primary);
+      margin-right: 8px;
+    }
+  }
+
+  ion-button {
+    font-weight: 600;
+    text-transform: none;
+
+    ion-icon {
+      margin-right: 8px;
+    }
+  }
+}
+
+ion-toolbar {
+  --background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+ion-label {
+  font-weight: 600 !important;
+  margin-bottom: 8px;
+}
+
+ion-input,
+ion-select,
+ion-textarea {
+  --background: #f7f7f7;
+  --padding-start: 12px;
+  --padding-end: 12px;
+  border-radius: 8px;
+  margin-top: 4px;
+}

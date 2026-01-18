@@ -1,0 +1,105 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      <ion-icon name="stats-chart-outline"></ion-icon>
+      Statistik
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <!-- Summary Cards -->
+  <div class="stats-grid">
+    <ion-card class="stat-card blue">
+      <ion-card-content>
+        <ion-icon name="people-outline" class="stat-icon"></ion-icon>
+        <h2 class="stat-number">{{ getStatistik().total }}</h2>
+        <p class="stat-label">Total Siswa</p>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card class="stat-card indigo">
+      <ion-card-content>
+        <ion-icon name="man-outline" class="stat-icon"></ion-icon>
+        <h2 class="stat-number">{{ getStatistik().lakiLaki }}</h2>
+        <p class="stat-label">Siswa Laki-laki</p>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card class="stat-card pink">
+      <ion-card-content>
+        <ion-icon name="woman-outline" class="stat-icon"></ion-icon>
+        <h2 class="stat-number">{{ getStatistik().perempuan }}</h2>
+        <p class="stat-label">Siswa Perempuan</p>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card class="stat-card green">
+      <ion-card-content>
+        <ion-icon name="cash-outline" class="stat-icon"></ion-icon>
+        <h2 class="stat-number-small">
+          {{ formatRupiah(getStatistik().totalSaldo) }}
+        </h2>
+        <p class="stat-label">Total Tabungan</p>
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+  <!-- Informasi Tambahan -->
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Informasi Tambahan</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <div class="info-grid">
+        <div class="info-item border-blue">
+          <p class="info-label">Rata-rata Saldo per Siswa</p>
+          <h3 class="info-value">
+            {{ formatRupiah(getStatistik().rataRataSaldo) }}
+          </h3>
+        </div>
+        <div class="info-item border-purple">
+          <p class="info-label">Total Transaksi</p>
+          <h3 class="info-value">{{ transactions.length }}</h3>
+        </div>
+      </div>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Riwayat Transaksi -->
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Riwayat Transaksi Terakhir</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      <div *ngIf="transactions.length === 0" class="empty-state">
+        <ion-icon name="bar-chart-outline"></ion-icon>
+        <p>Belum ada transaksi</p>
+      </div>
+
+      <ion-item *ngFor="let trans of getRecentTransactions()" lines="none">
+        <ion-label>
+          <h2>
+            {{ trans.namaSiswa }}
+            <ion-badge [color]="trans.type === 'setor' ? 'success' : 'warning'">
+              {{ trans.type === 'setor' ? 'Setor' : 'Tarik' }}
+            </ion-badge>
+          </h2>
+
+          <p>{{ formatDate(trans.timestamp || '') }}</p>
+          <p>
+            {{ trans.type === 'setor' ? '+' : '-' }} {{
+            formatRupiah(trans.amount) }} | Saldo: {{
+            formatRupiah(trans.saldoSesudah) }}
+          </p>
+        </ion-label>
+
+        <!--  TOMBOL HAPUS -->
+        <ion-button fill="clear" color="danger" (click)="konfirmasiHapus(trans)">
+          <ion-icon name="trash-outline"></ion-icon>
+        </ion-button>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

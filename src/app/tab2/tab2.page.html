@@ -1,0 +1,132 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>{{ editMode ? 'Edit Siswa' : 'Tambah Siswa' }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <ion-card-content>
+      <ion-item>
+        <ion-icon name="person-outline" slot="start"></ion-icon>
+        <ion-label position="stacked">Nama Lengkap</ion-label>
+        <ion-input
+          [(ngModel)]="formData.nama"
+          placeholder="Masukkan nama lengkap"
+        ></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-icon name="people-outline" slot="start"></ion-icon>
+        <ion-label position="stacked">Jenis Kelamin</ion-label>
+        <ion-select [(ngModel)]="formData.jenisKelamin" placeholder="Pilih">
+          <ion-select-option value="Laki-laki">Laki-laki</ion-select-option>
+          <ion-select-option value="Perempuan">Perempuan</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item>
+        <ion-icon name="call-outline" slot="start"></ion-icon>
+        <ion-label position="stacked">Nomor HP</ion-label>
+        <ion-input
+          type="tel"
+          [(ngModel)]="formData.noHp"
+          placeholder="08xx xxxx xxxx"
+        ></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-icon name="mail-outline" slot="start"></ion-icon>
+        <ion-label position="stacked">Email</ion-label>
+        <ion-input
+          type="email"
+          [(ngModel)]="formData.email"
+          placeholder="nama@email.com"
+        ></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-icon name="book-outline" slot="start"></ion-icon>
+        <ion-label position="stacked">Kelas</ion-label>
+        <ion-input
+          [(ngModel)]="formData.kelas"
+          placeholder="Contoh: X IPA 1"
+        ></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-icon name="location-outline" slot="start"></ion-icon>
+        <ion-label position="stacked">Alamat</ion-label>
+        <ion-textarea
+          [(ngModel)]="formData.alamat"
+          rows="3"
+          placeholder="Alamat lengkap siswa"
+        ></ion-textarea>
+      </ion-item>
+
+      <!-- SALDO AWAL -->
+      <ion-item>
+        <ion-icon name="cash-outline" slot="start"></ion-icon>
+        <ion-label position="stacked">Saldo Awal Tabungan (Rp)</ion-label>
+        <ion-input
+          type="number"
+          [(ngModel)]="formData.saldoTabungan"
+          placeholder="0"
+        ></ion-input>
+      </ion-item>
+
+      <!-- METODE PEMBAYARAN -->
+      <ion-item>
+        <ion-icon name="wallet-outline" slot="start"></ion-icon>
+        <ion-label position="stacked">Metode Pembayaran</ion-label>
+        <ion-select
+          [(ngModel)]="formData.metodePembayaran"
+          placeholder="Pilih metode pembayaran"
+        >
+          <ion-select-option value="Tunai">Tunai</ion-select-option>
+          <ion-select-option value="Transfer Bank"
+            >Transfer Bank</ion-select-option
+          >
+          <ion-select-option value="QRIS">QRIS</ion-select-option>
+          <ion-select-option value="E-Wallet">E-Wallet</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <!-- NOMOR REFERENSI -->
+      <ion-item
+        *ngIf="
+    formData.metodePembayaran &&
+    formData.metodePembayaran !== 'Tunai'
+  "
+      >
+        <ion-icon name="document-text-outline" slot="start"></ion-icon>
+        <ion-label position="stacked">Nomor Referensi</ion-label>
+        <ion-input
+          [(ngModel)]="formData.nomorReferensi"
+          placeholder="Masukkan nomor referensi"
+        ></ion-input>
+      </ion-item>
+
+      <ion-button
+        expand="block"
+        (click)="handleSubmit()"
+        color="primary"
+        class="ion-margin-top"
+      >
+        <ion-icon name="save-outline" slot="start"></ion-icon>
+        {{ editMode ? 'Update Data' : 'Simpan Data' }}
+      </ion-button>
+
+      <ion-button
+        *ngIf="editMode"
+        expand="block"
+        (click)="resetForm()"
+        color="medium"
+        class="ion-margin-top"
+      >
+        <ion-icon name="close-outline" slot="start"></ion-icon>
+        Batal
+      </ion-button>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

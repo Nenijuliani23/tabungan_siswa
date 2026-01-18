@@ -1,0 +1,135 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>
+      <ion-icon name="cash-outline"></ion-icon>
+      Tabungan Siswa SMA Harapan Bandar Pulo
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <!-- ===== DAFTAR SISWA ===== -->
+  <ion-card *ngFor="let siswa of siswaList" class="siswa-card">
+    <!-- HEADER -->
+    <ion-card-header>
+      <div class="siswa-header">
+        <!-- AVATAR -->
+        <ion-avatar
+          [class]="
+            siswa.jenisKelamin === 'Laki-laki'
+              ? 'avatar-male'
+              : 'avatar-female'
+          "
+        >
+          <div class="avatar-text">{{ siswa.nama.charAt(0) }}</div>
+        </ion-avatar>
+
+        <!-- INFO -->
+        <div class="siswa-info">
+          <ion-card-title>{{ siswa.nama }}</ion-card-title>
+          <ion-card-subtitle>{{ siswa.kelas }}</ion-card-subtitle>
+        </div>
+
+        <!-- AKSI -->
+        <div class="action-buttons">
+          <ion-button fill="clear" (click)="handleEdit(siswa)">
+            <ion-icon name="create-outline"></ion-icon>
+          </ion-button>
+
+          <ion-button
+            fill="clear"
+            color="danger"
+            (click)="handleDelete(siswa.id!)"
+          >
+            <ion-icon name="trash-outline"></ion-icon>
+          </ion-button>
+        </div>
+      </div>
+    </ion-card-header>
+
+    <!-- KONTEN -->
+    <ion-card-content>
+      <ion-list lines="none">
+        <!-- JENIS KELAMIN -->
+        <ion-item>
+          <ion-icon
+            [name]="
+              siswa.jenisKelamin === 'Laki-laki'
+                ? 'male-outline'
+                : 'female-outline'
+            "
+            slot="start"
+          ></ion-icon>
+          <ion-label>{{ siswa.jenisKelamin }}</ion-label>
+        </ion-item>
+
+        <!-- NO HP -->
+        <ion-item>
+          <ion-icon name="call-outline" slot="start"></ion-icon>
+          <ion-label>{{ siswa.noHp }}</ion-label>
+        </ion-item>
+
+        <!-- EMAIL -->
+        <ion-item>
+          <ion-icon name="mail-outline" slot="start"></ion-icon>
+          <ion-label>{{ siswa.email }}</ion-label>
+        </ion-item>
+
+        <!-- ALAMAT -->
+        <ion-item>
+          <ion-icon name="location-outline" slot="start"></ion-icon>
+          <ion-label class="ion-text-wrap"> {{ siswa.alamat }} </ion-label>
+        </ion-item>
+      </ion-list>
+
+      <!-- METODE PEMBAYARAN -->
+      <ion-item>
+        <ion-icon name="wallet-outline" slot="start"></ion-icon>
+        <ion-label>
+          Metode Pembayaran :
+          <b>{{ siswa.metodePembayaran }}</b>
+        </ion-label>
+      </ion-item>
+
+      <!-- SALDO -->
+      <div class="saldo-section">
+        <div class="saldo-display">
+          <span class="saldo-label">Saldo Tabungan:</span>
+          <span class="saldo-amount">
+            {{ formatRupiah(siswa.saldoTabungan) }}
+          </span>
+        </div>
+
+        <!-- BUTTON TRANSAKSI -->
+        <div class="transaction-buttons">
+          <ion-button
+            expand="block"
+            color="success"
+            (click)="handleTambahSaldo(siswa)"
+          >
+            <ion-icon name="add-circle-outline" slot="start"></ion-icon>
+            Setor
+          </ion-button>
+
+          <ion-button
+            expand="block"
+            color="warning"
+            (click)="handleTarikSaldo(siswa)"
+          >
+            <ion-icon name="remove-circle-outline" slot="start"></ion-icon>
+            Tarik
+          </ion-button>
+        </div>
+      </div>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- ===== EMPTY STATE ===== -->
+  <ion-card *ngIf="siswaList.length === 0" class="empty-state">
+    <ion-card-content class="ion-text-center">
+      <ion-icon name="people-outline" size="large"></ion-icon>
+      <h3>Belum Ada Data Siswa</h3>
+      <p>Silakan tambahkan data siswa terlebih dahulu</p>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
