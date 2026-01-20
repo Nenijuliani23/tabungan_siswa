@@ -48,3 +48,39 @@
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
+/* ============================= */
+/* ===== HEADER & LOGO ===== */
+/* ============================= */
+
+ion-toolbar {
+  --min-height: 64px; /* toolbar sedikit lebih tinggi, tapi tetap rapi */
+}
+
+ion-title {
+  padding: 0;
+}
+
+/* container logo + teks */
+.title-container {
+  display: flex;
+  align-items: center;
+  gap: 12px; /* jarak nyaman logo & teks */
+}
+
+/* LOGO SEKOLAH */
+.logo {
+  width: 70px; /* ⬅ LEBIH BESAR tapi masih proporsional */
+  height: 70px;
+  object-fit: contain;
+  background: white; /* bikin logo jelas di bg biru */
+  padding: 4px;
+  border-radius: 50%;
+}
+
+/* TEKS JUDUL */
+.title-container span {
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.25;
+  white-space: normal;
+}
