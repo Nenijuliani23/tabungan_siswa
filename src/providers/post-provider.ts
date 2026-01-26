@@ -5,7 +5,7 @@ import { map } from 'rxjs/operators';
 
 @Injectable()
 export class PostProvider {
-  server: string = 'http://localhost/api-tabungan/';
+  server: string = 'http://tabungansiswa.rplbc-23.com/api-tabungan/';
 
   constructor(public http: HttpClient) {}
 
@@ -19,7 +19,7 @@ export class PostProvider {
       .pipe(
         map((res: any) => {
           return res;
-        })
+        }),
       );
   }
 }

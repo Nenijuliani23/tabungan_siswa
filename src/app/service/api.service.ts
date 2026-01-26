@@ -50,7 +50,7 @@ export interface ApiResponse<T> {
   providedIn: 'root',
 })
 export class ApiService {
-  private apiUrl = 'http://localhost/api-tabungan';
+  private apiUrl = 'https://tabungansiswa.rplbc-23.com/api-tabungan';
 
   private httpOptions = {
     headers: new HttpHeaders({
@@ -58,7 +58,7 @@ export class ApiService {
     }),
   };
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   // ===== SISWA =====
 
@@ -78,7 +78,7 @@ export class ApiService {
     return this.http.post<ApiResponse<any>>(
       `${this.apiUrl}/siswa.php`,
       siswa,
-      this.httpOptions
+      this.httpOptions,
     );
   }
 
@@ -86,13 +86,13 @@ export class ApiService {
     return this.http.put<ApiResponse<any>>(
       `${this.apiUrl}/siswa.php`,
       siswa,
-      this.httpOptions
+      this.httpOptions,
     );
   }
 
   deleteSiswa(id: number | string): Observable<any> {
     return this.http.delete<ApiResponse<any>>(
-      `${this.apiUrl}/siswa.php?id=${id}`
+      `${this.apiUrl}/siswa.php?id=${id}`,
     );
   }
 
@@ -106,9 +106,9 @@ export class ApiService {
 
   getTransactionsBySiswa(siswaId: number | string): Observable<Transaction[]> {
     return this.http
-      .get<ApiResponse<Transaction[]>>(
-        `${this.apiUrl}/transaksi.php?siswa_id=${siswaId}`
-      )
+      .get<
+        ApiResponse<Transaction[]>
+      >(`${this.apiUrl}/transaksi.php?siswa_id=${siswaId}`)
       .pipe(map((response) => response.data || []));
   }
 
@@ -120,13 +120,13 @@ export class ApiService {
     return this.http.post<ApiResponse<any>>(
       `${this.apiUrl}/transaksi.php`,
       transaction,
-      this.httpOptions
+      this.httpOptions,
     );
   }
 
   deleteTransaction(id: number | string): Observable<any> {
     return this.http.delete<ApiResponse<any>>(
-      `${this.apiUrl}/transaksi.php?id=${id}`
+      `${this.apiUrl}/transaksi.php?id=${id}`,
     );
   }
 

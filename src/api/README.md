@@ -1,11 +1,13 @@
 # API Documentation - Tabungan Siswa SMA Harapan Bandar Pulo
 
 ## 📋 Overview
+
 RESTful API untuk aplikasi manajemen tabungan siswa yang dibangun dengan PHP dan MySQL.
 
 ## 🔧 Setup & Installation
 
 ### 1. Database Setup
+
 1. Buka phpMyAdmin atau MySQL client
 2. Import file `setup_database.sql` yang ada di folder `database/`
 3. Database `tabungan_siswa` akan otomatis terbuat dengan:
@@ -15,6 +17,7 @@ RESTful API untuk aplikasi manajemen tabungan siswa yang dibangun dengan PHP dan
    - Views dan Stored Procedures
 
 ### 2. API Configuration
+
 1. Copy folder `api/` ke folder `htdocs/api-tabungan/` (untuk XAMPP)
 2. Pastikan XAMPP/Apache sudah running
 3. Edit file `config.php` jika perlu (ubah DB credentials):
@@ -26,9 +29,11 @@ RESTful API untuk aplikasi manajemen tabungan siswa yang dibangun dengan PHP dan
    ```
 
 ### 3. Testing
+
 Buka browser atau Postman:
+
 ```
-http://localhost/api-tabungan/siswa.php
+https://tabungansiswa.rplbc-23.com/api-tabungan/siswa.php
 ```
 
 ---
@@ -36,8 +41,9 @@ http://localhost/api-tabungan/siswa.php
 ## 📡 API Endpoints
 
 ### Base URL
+
 ```
-http://localhost/api-tabungan
+https://tabungansiswa.rplbc-23.com/api-tabungan
 ```
 
 ---
@@ -45,12 +51,15 @@ http://localhost/api-tabungan
 ## 1️⃣ Siswa API (`/siswa.php`)
 
 ### **GET** - Get All Students
+
 **Request:**
+
 ```http
 GET /siswa.php
 ```
 
 **Response (200):**
+
 ```json
 {
   "success": true,
@@ -77,12 +86,15 @@ GET /siswa.php
 ---
 
 ### **GET** - Get Student by ID
+
 **Request:**
+
 ```http
 GET /siswa.php?id=1
 ```
 
 **Response (200):**
+
 ```json
 {
   "success": true,
@@ -99,7 +111,9 @@ GET /siswa.php?id=1
 ---
 
 ### **POST** - Create New Student
+
 **Request:**
+
 ```http
 POST /siswa.php
 Content-Type: application/json
@@ -118,6 +132,7 @@ Content-Type: application/json
 ```
 
 **Required Fields:**
+
 - `nama`
 - `noHp`
 - `jenisKelamin`
@@ -126,11 +141,13 @@ Content-Type: application/json
 - `kelas`
 
 **Optional Fields:**
+
 - `saldoTabungan` (default: 0)
 - `metodePembayaran`
 - `nomorReferensi`
 
 **Response (201):**
+
 ```json
 {
   "success": true,
@@ -146,7 +163,9 @@ Content-Type: application/json
 ---
 
 ### **PUT** - Update Student
+
 **Request:**
+
 ```http
 PUT /siswa.php
 Content-Type: application/json
@@ -165,6 +184,7 @@ Content-Type: application/json
 ```
 
 **Response (200):**
+
 ```json
 {
   "success": true,
@@ -177,12 +197,15 @@ Content-Type: application/json
 ---
 
 ### **DELETE** - Delete Student
+
 **Request:**
+
 ```http
 DELETE /siswa.php?id=1
 ```
 
 **Response (200):**
+
 ```json
 {
   "success": true,
@@ -197,12 +220,15 @@ DELETE /siswa.php?id=1
 ## 2️⃣ Transaksi API (`/transaksi.php`)
 
 ### **GET** - Get All Transactions
+
 **Request:**
+
 ```http
 GET /transaksi.php
 ```
 
 **Response (200):**
+
 ```json
 {
   "success": true,
@@ -225,7 +251,9 @@ GET /transaksi.php
 ---
 
 ### **GET** - Get Transactions by Student
+
 **Request:**
+
 ```http
 GET /transaksi.php?siswa_id=1
 ```
@@ -233,7 +261,9 @@ GET /transaksi.php?siswa_id=1
 ---
 
 ### **POST** - Create Transaction (Setor/Tarik)
+
 **Request (Setor):**
+
 ```http
 POST /transaksi.php
 Content-Type: application/json
@@ -246,6 +276,7 @@ Content-Type: application/json
 ```
 
 **Request (Tarik):**
+
 ```http
 POST /transaksi.php
 Content-Type: application/json
@@ -258,11 +289,13 @@ Content-Type: application/json
 ```
 
 **Required Fields:**
+
 - `siswaId` (integer)
 - `type` (string: "setor" atau "tarik")
 - `amount` (number > 0)
 
 **Response (201):**
+
 ```json
 {
   "success": true,
@@ -276,6 +309,7 @@ Content-Type: application/json
 ```
 
 **Error Response (400):**
+
 ```json
 {
   "success": false,
@@ -283,7 +317,8 @@ Content-Type: application/json
 }
 ```
 
-> **Note:** 
+> **Note:**
+>
 > - Transaksi menggunakan database transaction untuk memastikan atomicity
 > - Saldo siswa otomatis ter-update
 > - Validasi saldo dilakukan untuk transaksi "tarik"
@@ -291,12 +326,15 @@ Content-Type: application/json
 ---
 
 ### **DELETE** - Delete Transaction
+
 **Request:**
+
 ```http
 DELETE /transaksi.php?id=1
 ```
 
 **Response (200):**
+
 ```json
 {
   "success": true,
@@ -311,12 +349,15 @@ DELETE /transaksi.php?id=1
 ## 3️⃣ Statistik API (`/statistik.php`)
 
 ### **GET** - Get Statistics
+
 **Request:**
+
 ```http
 GET /statistik.php
 ```
 
 **Response (200):**
+
 ```json
 {
   "success": true,
@@ -339,6 +380,7 @@ GET /statistik.php
 ## 🔐 Error Responses
 
 ### 400 - Bad Request
+
 ```json
 {
   "success": false,
@@ -347,6 +389,7 @@ GET /statistik.php
 ```
 
 ### 404 - Not Found
+
 ```json
 {
   "success": false,
@@ -355,6 +398,7 @@ GET /statistik.php
 ```
 
 ### 405 - Method Not Allowed
+
 ```json
 {
   "success": false,
@@ -363,6 +407,7 @@ GET /statistik.php
 ```
 
 ### 500 - Internal Server Error
+
 ```json
 {
   "success": false,
@@ -376,14 +421,17 @@ GET /statistik.php
 ## 🧪 Testing dengan Postman
 
 ### Import Collection
+
 Buat Postman collection dengan endpoints di atas.
 
 ### Environment Variables
+
 ```
-base_url: http://localhost/api-tabungan
+base_url: https://tabungansiswa.rplbc-23.com/api-tabungan
 ```
 
 ### Test Flow
+
 1. **Create Student** → POST `/siswa.php`
 2. **Get All Students** → GET `/siswa.php`
 3. **Create Transaction** → POST `/transaksi.php`
@@ -397,16 +445,20 @@ base_url: http://localhost/api-tabungan
 ## 📝 Notes
 
 ### CORS Headers
+
 API sudah dilengkapi dengan CORS headers untuk development:
+
 ```php
 Access-Control-Allow-Origin: *
 Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS
 ```
 
 ### Character Encoding
+
 Database dan API menggunakan `utf8mb4` untuk mendukung karakter Unicode penuh.
 
 ### Database Transactions
+
 Endpoint `/transaksi.php` menggunakan MySQL transaction (`BEGIN`, `COMMIT`, `ROLLBACK`) untuk memastikan data consistency.
 
 ---
@@ -414,22 +466,26 @@ Endpoint `/transaksi.php` menggunakan MySQL transaction (`BEGIN`, `COMMIT`, `ROL
 ## 🔧 Troubleshooting
 
 ### Error: Database connection failed
+
 - Pastikan XAMPP/MySQL sudah running
 - Cek credentials di `config.php`
 - Pastikan database `tabungan_siswa` sudah dibuat
 
 ### Error: 404 Not Found
+
 - Pastikan file API ada di `htdocs/api-tabungan/`
 - Cek spelling URL
 - Pastikan Apache sudah running
 
 ### Error: CORS Error
+
 - Jika masih error CORS, tambahkan header di Apache config
 - Atau gunakan Chrome extension untuk disable CORS saat development
 
 ---
 
 ## 📞 Support
+
 Untuk pertanyaan atau issue, hubungi tim development.
 
 ---
